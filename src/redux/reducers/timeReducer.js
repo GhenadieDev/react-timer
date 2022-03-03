@@ -5,9 +5,12 @@ import {
   DECREMENT_HOURS,
   DECREMENT_MINUTES,
   DECREMENT_SECONDS,
+  START_TIMER,
+  STOP_TIMER
 } from "../action_types/types";
 
 const initialState = {
+  started: false,
   hours: {
     tens: 0,
     units: 0,
@@ -104,6 +107,16 @@ export const timeReducer = (state = initialState, action) => {
               : state.seconds.units - 1,
         },
       };
+    case START_TIMER:
+      return {
+        ...state,
+        started: true
+      }
+    case STOP_TIMER:
+      return {
+        ...state,
+        started: false
+      }
     default:
       return state;
   }
