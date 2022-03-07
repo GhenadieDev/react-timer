@@ -14,6 +14,7 @@ const initialState = {
   hours: {
     tens: 0,
     units: 0,
+    limit: 99
   },
   minutes: {
     tens: 0,
@@ -26,6 +27,8 @@ const initialState = {
     limit: 59,
   },
 };
+
+//const prevState = store.dispatch(ActionCreators.jump(1));
 
 export const timeReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -50,7 +53,7 @@ export const timeReducer = (state = initialState, action) => {
               ? state.hours.tens - 1
               : state.hours.tens,
           units:
-            state.hours.tens > state.hours.units ? 9 : state.hours.units - 1,
+          (state.hours.tens + state.hours.units) === state.hours.tens ? 9 : state.hours.units - 1
         },
       };
     case INCREMENT_MINUTES:
@@ -75,9 +78,7 @@ export const timeReducer = (state = initialState, action) => {
               ? state.minutes.tens - 1
               : state.minutes.tens,
           units:
-            state.minutes.tens > state.minutes.units
-              ? 9
-              : state.minutes.units - 1,
+          (state.minutes.tens + state.minutes.units) === state.minutes.tens ? 9 : state.minutes.units - 1
         },
       };
     case INCREMENT_SECONDS:
@@ -101,10 +102,7 @@ export const timeReducer = (state = initialState, action) => {
             state.seconds.units === 0 && state.seconds.tens !== 0
               ? state.seconds.tens - 1
               : state.seconds.tens,
-          units:
-            state.seconds.tens > state.seconds.units
-              ? 9
-              : state.seconds.units - 1,
+          units: (state.seconds.tens + state.seconds.units) === state.seconds.tens ? 9 : state.seconds.units - 1
         },
       };
     case START_TIMER:

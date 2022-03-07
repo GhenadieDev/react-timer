@@ -1,37 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { incrementSeconds } from "../../redux/actions/incrementSeconds";
 import { decrementSeconds } from "../../redux/actions/decrementSeconds";
-import { stopTimer } from "../../redux/actions/stopTimer";
 
 import "../styles/root-style.scss";
 
 export const Seconds = () => {
-  const seconds = useSelector((state) => state.seconds);
-  const start = useSelector((state) => state.started);
+  const seconds = useSelector((state) => state.time.seconds);
   const dispatch = useDispatch();
-
-  let intervalID = useRef();
-
-  useEffect(() => { //if timer has started, start decrementing seconds
-    if (start) {
-      intervalID.current = setInterval(() => {
-        dispatch(decrementSeconds());
-      }, 1000);
-    }
-    else {
-      clearInterval(intervalID.current);
-    }
-  }, [start, dispatch]);
-
-  useEffect(() => { 
-    if(seconds.tens === 0 && seconds.units === 0) {
-      if(start !== false) {
-        dispatch(stopTimer());
-      }
-    }
-  }, [seconds.tens, seconds.units, dispatch, start])
 
   const increment = () => {
     if (
