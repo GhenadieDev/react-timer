@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { incrementHours } from "../../redux/actions/incrementHours";
-import { decrementHours } from "../../redux/actions/decrementHours";
+import { incrementHours } from "../../redux/actions/hours/incrementHours";
+import { decrementHours } from "../../redux/actions/hours/decrementHours";
 
 import "../styles/root-style.scss";
 

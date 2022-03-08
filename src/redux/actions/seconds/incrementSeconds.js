@@ -1,4 +1,4 @@
-import { INCREMENT_SECONDS } from "../action_types/types";
+import { INCREMENT_SECONDS } from "../../action_types/types";
 
 export const incrementSeconds = () => {
     return {

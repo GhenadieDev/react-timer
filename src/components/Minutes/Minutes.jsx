@@ -1,11 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { incrementMinutes } from "../../redux/actions/incrementMinutes";
-import { decrementMinutes } from "../../redux/actions/decrementMinutes";
+import { incrementMinutes } from "../../redux/actions/minutes/incrementMinutes";
+import { decrementMinutes } from "../../redux/actions/minutes/decrementMinutes";
 
 import "../styles/root-style.scss";
-import { useEffect } from "react";
 
 export const Minutes = () => {
   const minutes = useSelector((state) => state.time.minutes);

@@ -5,55 +5,77 @@ import { Hours } from "../Hours/Hours";
 import { Minutes } from "../Minutes/Minutes";
 import { Seconds } from "../Seconds/Seconds";
 
-import { decrementSeconds } from "../../redux/actions/decrementSeconds";
-import { decrementMinutes } from "../../redux/actions/decrementMinutes";
-import { decrementHours } from "../../redux/actions/decrementHours";
-import { stopTimer } from "../../redux/actions/stopTimer";
+import { decrementSeconds } from "../../redux/actions/seconds/decrementSeconds";
+import { resetSeconds } from "../../redux/actions/seconds/resetSeconds";
+import { decrementMinutes } from "../../redux/actions/minutes/decrementMinutes";
+import { resetMinutes } from "../../redux/actions/minutes/resetMinutes";
+import { decrementHours } from "../../redux/actions/hours/decrementHours";
+import { stopTimer } from "../../redux/actions/timer/stopTimer";
 
 import "./Timer.scss";
 
 export const Timer = () => {
+  const seconds = useSelector(
+    (state) =>
+      state.time.seconds.tens.toString() + state.time.seconds.units.toString()
+  );
+  const minutes = useSelector(
+    (state) =>
+      state.time.minutes.tens.toString() + state.time.minutes.units.toString()
+  );
+  const hours = useSelector(
+    (state) =>
+      state.time.hours.tens.toString() + state.time.hours.units.toString()
+  );
 
-  const timer = useSelector((state) => {
-    const seconds = state.time.seconds;
-    const minutes = state.time.minutes;
-    const hours = state.time.hours;
-    const started = state.time.started;
-
-    return {
-      seconds,
-      minutes,
-      hours,
-      started
-    }
-  })
+  const started = useSelector((state) => state.time.started);
   const dispatch = useDispatch();
   let intervalID = useRef();
 
-  useEffect(() => { //if timer has started, start decrementing seconds
-    if (timer.started) {
+  useEffect(() => {
+    //if timer has started, start decrementing seconds
+    if (started) {
       intervalID.current = setInterval(() => {
         dispatch(decrementSeconds());
       }, 1000);
-    }
-    else {
+    } else {
       clearInterval(intervalID.current);
     }
-  }, [timer.started, dispatch]);
+  }, [started, dispatch]);
 
- useEffect(() => { 
-    if(timer.seconds.tens === 0 && timer.seconds.units === 0) {
-      if(timer.started !== false) {
+  useEffect(() => {
+    if (started) {
+      if(seconds === '00') {
+        if(minutes !== '00') {
+          setTimeout(() => {
+            dispatch(decrementMinutes());
+          }, 1000)
+          setTimeout(() => {
+            dispatch(resetSeconds());
+          }, 1000) 
+        }
+      }
+      if(seconds === '00' && minutes === '00' && hours !== '00') {
+        setTimeout(() => {
+          dispatch(decrementHours());
+        }, 1000)
+        setTimeout(() => {
+          dispatch(resetMinutes());
+          dispatch(resetSeconds());
+        }, 1000)
+      }
+
+      if (seconds === "00" && minutes === "00" && hours === "00") {
         dispatch(stopTimer());
       }
     }
-  }, [timer.seconds.tens, timer.seconds.units, dispatch, timer.started])
+  }, [seconds, hours, minutes, dispatch, started]);
 
   return (
     <div className="timer">
-        <Hours />
-        <Minutes />
-        <Seconds />
+      <Hours />
+      <Minutes />
+      <Seconds />
     </div>
   );
 };

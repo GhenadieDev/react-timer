@@ -1,4 +1,4 @@
-import { INCREMENT_HOURS } from "../action_types/types";
+import { INCREMENT_HOURS } from "../../action_types/types";
 
 export const incrementHours = () => {
     return {

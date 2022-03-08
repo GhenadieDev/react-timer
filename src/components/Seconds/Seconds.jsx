@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { incrementSeconds } from "../../redux/actions/incrementSeconds";
-import { decrementSeconds } from "../../redux/actions/decrementSeconds";
+import { incrementSeconds } from "../../redux/actions/seconds/incrementSeconds";
+import { decrementSeconds } from "../../redux/actions/seconds/decrementSeconds";
 
 import "../styles/root-style.scss";
 

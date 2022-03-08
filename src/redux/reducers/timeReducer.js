@@ -1,12 +1,15 @@
 import {
   INCREMENT_HOURS,
-  INCREMENT_MINUTES,
-  INCREMENT_SECONDS,
   DECREMENT_HOURS,
+  INCREMENT_MINUTES,
   DECREMENT_MINUTES,
+  RESET_MINUTES,
+  INCREMENT_SECONDS,
   DECREMENT_SECONDS,
+  RESET_SECONDS,
   START_TIMER,
-  STOP_TIMER
+  STOP_TIMER,
+  RESET_TIMER
 } from "../action_types/types";
 
 const initialState = {
@@ -105,6 +108,24 @@ export const timeReducer = (state = initialState, action) => {
           units: (state.seconds.tens + state.seconds.units) === state.seconds.tens ? 9 : state.seconds.units - 1
         },
       };
+    case RESET_SECONDS:
+      return {
+        ...state,
+        seconds: {
+          ...state.seconds,
+          tens: 5,
+          unites: 9
+        }
+      }
+    case RESET_MINUTES: 
+      return {
+        ...state,
+        minutes: {
+          ...state.minutes,
+          tens: 5,
+          units: 9
+        }
+      }
     case START_TIMER:
       return {
         ...state,
@@ -114,6 +135,25 @@ export const timeReducer = (state = initialState, action) => {
       return {
         ...state,
         started: false
+      }
+    case RESET_TIMER: 
+      return {
+        ...state,
+        hours: {
+          ...state.hours,
+          tens: 0,
+          units: 0
+        },
+        minutes: {
+          ...state.minutes,
+          tens: 0,
+          units: 0
+        },
+        seconds: {
+          ...state.seconds,
+          tens: 0,
+          units: 0
+        }
       }
     default:
       return state;
