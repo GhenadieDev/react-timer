@@ -1,0 +1,22 @@
+.timer {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    color: white;
+    width: 60%;
+    //border: 2px solid green;
+}
+
+@media(max-width: 600px) {
+    .timer {
+        width: 90%;
+        gap: 40px;
+    }  
+}
+
+@media(max-width: 376px) {
+    .timer {
+        width: 100%;
+        gap: 30px;
+    }  
+}

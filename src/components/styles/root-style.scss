@@ -1,0 +1,65 @@
+.hours, .minutes, .seconds {
+    height: fit-content;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h6{
+        font-size: 15px;
+        font-weight: 400;
+        margin-bottom: 10px;
+    }
+
+    .h-up-arrow, .m-up-arrow, .s-up-arrow {
+        transform: rotate(90deg);
+        span {
+            content: "\276E";
+        }
+    }
+
+    .h-down-arrow, .m-down-arrow, .s-down-arrow {
+        transform: rotate(-90deg);
+    }
+
+    button {
+        width: fit-content;
+        outline: none;
+        border: none;
+        background-color: black;
+        color: white;
+        font-size: 22px;
+        font-weight: 500;
+        height: 42px;
+        
+        @media(min-width: 1024px) {
+            &:hover {
+                cursor: pointer;
+                font-size: 28px;
+                transition: 0.2s ease-out;
+            }
+        }
+    }
+
+    .h-count, .m-count, .s-count {
+        font-size: 8rem;
+        padding-top: 2px;
+        font-weight: 300;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    @media(max-width: 872px) {
+        .h-count, .m-count, .s-count {
+            font-size: 5rem;
+        }
+    }
+
+    @media(max-width: 376px) {
+        .h-count, .m-count, .s-count {
+            font-size: 3rem;
+        }
+    }
+}
+
