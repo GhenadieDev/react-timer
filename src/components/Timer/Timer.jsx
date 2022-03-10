@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Howl } from "howler";
 
 import { Hours } from "../Hours/Hours";
 import { Minutes } from "../Minutes/Minutes";
@@ -11,6 +12,8 @@ import { decrementMinutes } from "../../redux/actions/minutes/decrementMinutes";
 import { resetMinutes } from "../../redux/actions/minutes/resetMinutes";
 import { decrementHours } from "../../redux/actions/hours/decrementHours";
 import { stopTimer } from "../../redux/actions/timer/stopTimer";
+
+import alarm from '../../audio/alarm.wav';
 
 import "./Timer.scss";
 
@@ -31,6 +34,14 @@ export const Timer = () => {
   const started = useSelector((state) => state.time.started);
   const dispatch = useDispatch();
   let intervalID = useRef();
+
+  const playSound = (src) => {
+    const sound = new Howl({
+      src,
+      volume: 1.0
+    })
+    sound.play();
+  }
 
   useEffect(() => {
     //if timer has started, start decrementing seconds
@@ -67,6 +78,7 @@ export const Timer = () => {
 
       if (seconds === "00" && minutes === "00" && hours === "00") {
         dispatch(stopTimer());
+        playSound(alarm);
       }
     }
   }, [seconds, hours, minutes, dispatch, started]);
